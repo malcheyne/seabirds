@@ -1,0 +1,5 @@
+"0","seabirds %>% "
+"0","  group_by(common_name) %>%"
+"0","  filter(str_detect(common_name, ""(?i)albatross"")) %>% "
+"0","  ungroup() %>% "
+"0","  summarise(count = sum(total_sighting, na.rm = TRUE))"

@@ -1,0 +1,10 @@
+"0","m <- birds_9 %>%"
+"0","  leaflet() %>%"
+"0","  addTiles() %>%  # Add default OpenStreetMap map tiles"
+"0","  addMarkers(lng=birds_9$long, lat=birds_9$lat, popup=birds_9$common_name)"
+"2","Warning in validateCoords(lng, lat, funcName) :"
+"2","
+ "
+"2"," Data contains 29 rows with either missing or invalid lat/lon values and will be ignored
+"
+"0","m  # Print the map"

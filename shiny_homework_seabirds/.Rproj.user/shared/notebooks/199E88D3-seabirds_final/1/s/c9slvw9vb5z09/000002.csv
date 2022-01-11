@@ -1,0 +1,48 @@
+"0","seabirds %>% "
+"0","  group_by(common_name) %>% "
+"0","  mutate(common_name = if_else(str_detect(common_name, "
+"0","                                          ""(?i)shearwater""),""shearwater"", "
+"0","                                                            common_name),"
+"0","         common_name = if_else(str_detect(common_name, "
+"0","                                          ""(?i)albatross""), ""albatross"","
+"0","                                                            common_name),"
+"0","         common_name = if_else(str_detect(common_name, "
+"0","                                          ""(?i)mollymawk""), ""mollymawk"","
+"0","                                                            common_name),"
+"0","         common_name = if_else(str_detect(common_name, "
+"0","                                          ""(?i)petrel""), ""petrel"","
+"0","                                                            common_name),"
+"0","         common_name = if_else(str_detect(common_name, "
+"0","                                          ""(?i)prion""), ""prion"","
+"0","                                                            common_name),"
+"0","         common_name = if_else(str_detect(common_name, "
+"0","                                          ""(?i)skua""), ""skua"","
+"0","                                                            common_name)"
+"0","         ) %>% "
+"0","    mutate(max_sighting = max(num_group_sighting, na.rm = TRUE)) %>% "
+"0","  filter(max_sighting == 1) %>%"
+"0","  distinct(common_name) "
+"2","Warning:"
+"2"," Problem with `mutate()` column `max_sighting`.
+[34mi[39m `max_sighting = max(num_group_sighting, na.rm = TRUE)`.
+[34mi[39m no non-missing arguments to max; returning -Inf
+[34mi[39m The warning occurred in group 10: common_name = ""Black noddy"".
+"
+"2","Warning:"
+"2"," Problem with `mutate()` column `max_sighting`.
+[34mi[39m `max_sighting = max(num_group_sighting, na.rm = TRUE)`.
+[34mi[39m no non-missing arguments to max; returning -Inf
+[34mi[39m The warning occurred in group 15: common_name = ""Caspian tern"".
+"
+"2","Warning:"
+"2"," Problem with `mutate()` column `max_sighting`.
+[34mi[39m `max_sighting = max(num_group_sighting, na.rm = TRUE)`.
+[34mi[39m no non-missing arguments to max; returning -Inf
+[34mi[39m The warning occurred in group 59: common_name = ""Yellow-eyed penguin"".
+"
+"2","Warning:"
+"2"," Problem with `mutate()` column `max_sighting`.
+[34mi[39m `max_sighting = max(num_group_sighting, na.rm = TRUE)`.
+[34mi[39m no non-missing arguments to max; returning -Inf
+[34mi[39m The warning occurred in group 60: common_name = NA.
+"

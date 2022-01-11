@@ -1,0 +1,5 @@
+"0","seabirds %>% "
+"0","  group_by(common_name) %>%"
+"0","  filter(lat > -30) %>%"
+"0","  summarise(count = sum(total_sighting, na.rm = TRUE)) %>%"
+"0","  arrange(desc(count))"

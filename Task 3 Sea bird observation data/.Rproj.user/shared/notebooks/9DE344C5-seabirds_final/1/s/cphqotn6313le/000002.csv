@@ -1,0 +1,15 @@
+"0","clean_data <- read_csv(here(""clean_data/seabirds_cleaned_data.csv""))"
+"1","[1m[1mRows: [1m[22m[34m[34m49020[34m[39m [1m[1mColumns: [1m[22m[34m[34m52[34m[39m
+"
+"1","[36m--[39m [1m[1mColumn specification[1m[22m [36m----------------------------------------------------------------------------------------------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (19): common_name, scientific_name, species_abbreviation, age, plphase, feeding, on_water, on_ice, on_ship, in_hand, fly_by, group_sighting...
+[32mdbl[39m  (28): record_x, record_id, wanplum, total_sighting, num_feeding, num_on_water, num_on_ice, num_fly_by, num_group_sighting, num_ship_wake, r...
+[33mlgl[39m   (3): sex, air_temp, salinity
+[34mdttm[39m  (2): date, time
+"
+"1","
+[36mi[39m Use [38;5;251m[48;5;235m[38;5;251m[48;5;235m`spec()`[48;5;235m[38;5;251m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;251m[48;5;235m[38;5;251m[48;5;235m`show_col_types = FALSE`[48;5;235m[38;5;251m[49m[39m to quiet this message.
+"
+"0","clean_data"

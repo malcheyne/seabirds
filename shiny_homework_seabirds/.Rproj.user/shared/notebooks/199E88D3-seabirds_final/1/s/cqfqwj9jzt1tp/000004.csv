@@ -1,0 +1,5 @@
+"0","seabirds <- clean_data %>% "
+"0","              select(record_id, common_name, scientific_name, "
+"0","                     species_abbreviation, total_sighting, num_group_sighting, "
+"0","                     lat)"
+"0","seabirds"

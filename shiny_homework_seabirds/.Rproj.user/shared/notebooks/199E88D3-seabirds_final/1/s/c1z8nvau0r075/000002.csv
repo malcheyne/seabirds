@@ -1,0 +1,8 @@
+"0","seabirds %>% "
+"0","  group_by(common_name) %>%"
+"0","  filter(str_detect(common_name, ""(?i)penguin"")) %>% "
+"0","  ungroup() %>% "
+"0","  summarise(count = sum(total_sighting, na.rm = TRUE))"
+"2","Error in seabirds %>% group_by(common_name) %>% filter(str_detect(common_name,  : 
+  could not find function ""%>%""
+"
