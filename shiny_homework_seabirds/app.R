@@ -45,11 +45,11 @@ birds_9 <- seabirds_cleaned_data %>%
   arrange(desc(common_name))
   
   
-pal <- c("Shearwater" = "grey", "Albatross" = "blue", 
-         "Mollymawk" = "yellow", "Petrel" = "green", 
-         "Prion" = "pink", "Skua" = "purple", 
-         "Penguin" = "orange", "Brown noddy" = "brown", 
-         "Red-tailed tropicbird" = "red")
+pal <- c("Shearwater" = "#023858", "Albatross" = "#045a8d", 
+         "Mollymawk" = "#0570b0", "Petrel" = "#3690c0", 
+         "Prion" = "#74a9cf", "Skua" = "#a6bddb", 
+         "Penguin" = "#d0d1e6", "Brown noddy" = "#ece7f2", 
+         "Red-tailed tropicbird" = "#fff7fb")
 
 
 bird_count <- birds_9 %>% 
@@ -67,7 +67,7 @@ bird_count <- birds_9 %>%
 
 
 ui <- fluidPage(
-  theme = shinytheme("superhero"),
+  
   
     titlePanel(tags$h1("Seabirds")),
   
@@ -150,7 +150,7 @@ server <- function(input, output, session) {
       ggplot(filtered_birds()) +
       aes(y = common_name,
           x = log10(sighting_count), fill = common_name) +
-      geom_col() +
+      geom_col(col = "black") +
       theme(legend.position = "none") +
       scale_fill_manual(values = pal)
     # log10() as 1 or more birds are less than 10 and don't show on normal graph
@@ -163,7 +163,7 @@ server <- function(input, output, session) {
       ggplot() +
       aes(y = common_name, 
           x = log10(feeding_count), fill = common_name) +
-      geom_col() +
+      geom_col(col = "black") +
       theme(legend.position = "none") +
       scale_fill_manual(values = pal)
     # log10() as 1 or more birds are less than 10 and don't show on normal graph
@@ -174,7 +174,7 @@ server <- function(input, output, session) {
       ggplot(filtered_birds()) +
       aes(y = common_name, 
           x = on_ship_count, fill = common_name) +
-      geom_col() +
+      geom_col(col = "black") +
       theme(legend.position = "none") +
       scale_fill_manual(values = pal)
   })
@@ -184,7 +184,7 @@ server <- function(input, output, session) {
       ggplot(filtered_birds()) +
       aes(y = common_name, 
           x = in_hand_count, fill = common_name) +
-      geom_col() +
+      geom_col(col = "black") +
       theme(legend.position = "none") +
       scale_fill_manual(values = pal)
   })
@@ -194,7 +194,7 @@ server <- function(input, output, session) {
       ggplot(filtered_birds()) +
       aes(y = common_name, 
           x = log10(fly_by_count), fill = common_name) +
-      geom_col() +
+      geom_col(col = "black") +
       theme(legend.position = "none") +
       scale_fill_manual(values = pal)
   })
