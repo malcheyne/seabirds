@@ -83,6 +83,15 @@ birds_21 <- seabirds_cleaned_data %>%
 
 birds_21
 ```
+
+```{r}
+birds_21 %>% 
+  arrange(date)
+```
+
+
+
+
 ```{r}
 # https://r-charts.com/color-palette-generator/
 
@@ -208,11 +217,32 @@ in_hand %>%
 
 
 ```{r}
+# https://stackoverflow.com/questions/14255533/pretty-ticks-for-log-normal-scale-using-ggplot2-dynamic-not-manual
+# https://stackoverflow.com/questions/43974892/dynamic-limits-and-breaks-in-scale-y-continuous
+
+
 fly_by <-  birds_21 %>% 
               group_by(bird_type) %>% 
               filter(str_detect(fly_by, "YES")) %>% 
               summarise(count = n()) %>% 
               mutate(fly_by_id = row_number())
+
+
+# base_breaks <- function(n = 10){
+#     function(x) {
+#         axisTicks(log10(range(fly_by$count, na.rm = TRUE)), 
+#                   log = if_else(max(fly_by$count) > 1000, TRUE, FALSE), n = n)
+#     }
+# }
+
+# asd <- if_else(max(fly_by$count) < 1000, c(limits=c(0,max(fly_by$count)), 
+#                                            breaks  = seq(0,max(fly_by$count),
+#                                             by = round(max(fly_by$count)/5))), 
+#                c(limits=c(0,max(fly_by$count)), 
+#                  breaks  = seq(0,max(fly_by$count), 
+#                   by = round(max(fly_by$count)/5)),
+#                  trans = "log10")
+#                )
 
 fly_by %>% 
     ggplot() +
@@ -220,15 +250,19 @@ fly_by %>%
         x = count, fill = bird_type) +
     geom_col(colour = "black") +
     theme(legend.position = "none") +
-    scale_x_continuous(breaks = c(1, 5, 10, 1000, 6000), 
-                       limits = c(1,6000), 
-                       trans = "log10") +
+    scale_x_continuous(limits=c(0,max(fly_by$count)), 
+                       breaks  = c(seq(0,max(fly_by$count),
+                        by = (max(fly_by$count)/5))), trans = "log10"
+                       #validate(max(fly_by$count) < 1000, trans = "log10")
+                       ) +
     labs(y = "\n Bird Names",
          x = "Number of Birds Seen Flying BY\n Log10 scale") +
     scale_fill_manual(values = birds)
 # log10() as 1 or more birds are less than 10 and don't show on normal graph
 ```
-
+breaks = c(1, 5, 10, 1000, 6000), 
+                       limits = c(1,6000), 
+                       trans = "log10"
 
 ```{r}
 variants <- birds_21 %>% 
@@ -242,7 +276,7 @@ variants %>%
         x = count, fill = common_name) +
     geom_col(colour = "black") +
     theme(legend.position = "none") +
-    scale_x_continuous( 
+    scale_x_continuous(
                        trans = "log10") +
     labs(y = "\n Bird Names",
          x = "Number of Birds Seen Flying BY\n Log10 scale") +
@@ -322,72 +356,72 @@ library(shinythemes)
 ```
 
 ```{r}
-birds_9 <- seabirds_cleaned_data %>% 
-  group_by(common_name) %>% 
-  mutate(common_name = if_else(str_detect(common_name, 
-                                          "(?i)shearwater"),"Shearwater", 
-                               common_name),
-         common_name = if_else(str_detect(common_name, 
-                                          "(?i)albatross"), "Albatross",
-                               common_name),
-         common_name = if_else(str_detect(common_name, 
-                                          "(?i)mollymawk"), "Mollymawk",
-                               common_name),
-         common_name = if_else(str_detect(common_name, 
-                                          "(?i)petrel"), "Petrel",
-                               common_name),
-         common_name = if_else(str_detect(common_name, 
-                                          "(?i)prion"), "Prion",
-                               common_name),
-         common_name = if_else(str_detect(common_name, 
-                                          "(?i)skua"), "Skua",
-                               common_name),
-         common_name = if_else(str_detect(common_name, 
-                                          "(?i)penguin"), "Penguin",
-                               common_name),
-         common_name = if_else(str_detect(common_name, 
-                                          "(?i)Red-tailed tropicbird"), 
-                               "Red-tailed tropicbird",
-                               common_name),
-         common_name = if_else(str_detect(common_name, 
-                                          "(?i)Brown noddy"), "Brown noddy",
-                               common_name)
-  ) %>% 
-  filter(common_name %in% c("Shearwater", "Albatross", 
-                            "Mollymawk", "Petrel", 
-                            "Prion", "Skua", 
-                            "Penguin", "Brown noddy", 
-                            "Red-tailed tropicbird"))
+# birds_9 <- seabirds_cleaned_data %>% 
+#   group_by(common_name) %>% 
+#   mutate(common_name = if_else(str_detect(common_name, 
+#                                           "(?i)shearwater"),"Shearwater", 
+#                                common_name),
+#          common_name = if_else(str_detect(common_name, 
+#                                           "(?i)albatross"), "Albatross",
+#                                common_name),
+#          common_name = if_else(str_detect(common_name, 
+#                                           "(?i)mollymawk"), "Mollymawk",
+#                                common_name),
+#          common_name = if_else(str_detect(common_name, 
+#                                           "(?i)petrel"), "Petrel",
+#                                common_name),
+#          common_name = if_else(str_detect(common_name, 
+#                                           "(?i)prion"), "Prion",
+#                                common_name),
+#          common_name = if_else(str_detect(common_name, 
+#                                           "(?i)skua"), "Skua",
+#                                common_name),
+#          common_name = if_else(str_detect(common_name, 
+#                                           "(?i)penguin"), "Penguin",
+#                                common_name),
+#          common_name = if_else(str_detect(common_name, 
+#                                           "(?i)Red-tailed tropicbird"), 
+#                                "Red-tailed tropicbird",
+#                                common_name),
+#          common_name = if_else(str_detect(common_name, 
+#                                           "(?i)Brown noddy"), "Brown noddy",
+#                                common_name)
+#   ) %>% 
+#   filter(common_name %in% c("Shearwater", "Albatross", 
+#                             "Mollymawk", "Petrel", 
+#                             "Prion", "Skua", 
+#                             "Penguin", "Brown noddy", 
+#                             "Red-tailed tropicbird"))
 ```
 
 
 ```{r}
-pal <- c("Shearwater" = "grey", "Albatross" = "blue", 
-         "Mollymawk" = "yellow", "Petrel" = "green", 
-         "Prion" = "pink", "Skua" = "purple", 
-         "Penguin" = "orange", "Brown noddy" = "brown", 
-         "Red-tailed tropicbird" = "red")
+# pal <- c("Shearwater" = "grey", "Albatross" = "blue", 
+#          "Mollymawk" = "yellow", "Petrel" = "green", 
+#          "Prion" = "pink", "Skua" = "purple", 
+#          "Penguin" = "orange", "Brown noddy" = "brown", 
+#          "Red-tailed tropicbird" = "red")
 ```
 
 ```{r}
-names(birds_9)
-head(birds_9)
+# names(birds_9)
+# head(birds_9)
 ```
 
 
 ```{r}
 
-birds_9 %>% 
-  group_by(common_name) %>% 
-  mutate(feeding = if_else(feeding %in% "YES", 1, 0),
-         on_ship = if_else(on_ship %in% "YES", 1, 0),
-         in_hand = if_else(in_hand %in% "YES", 1, 0),
-         fly_by = if_else(fly_by %in% "YES", 1, 0)) %>% 
-  summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
-            feeding_count = sum(feeding, na.rm = TRUE),
-            on_ship_count = sum(on_ship, na.rm = TRUE),
-            in_hand_count = sum(in_hand, na.rm = TRUE),
-            fly_by_count = sum(fly_by, na.rm = TRUE)) 
+# birds_9 %>% 
+#   group_by(common_name) %>% 
+#   mutate(feeding = if_else(feeding %in% "YES", 1, 0),
+#          on_ship = if_else(on_ship %in% "YES", 1, 0),
+#          in_hand = if_else(in_hand %in% "YES", 1, 0),
+#          fly_by = if_else(fly_by %in% "YES", 1, 0)) %>% 
+#   summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
+#             feeding_count = sum(feeding, na.rm = TRUE),
+#             on_ship_count = sum(on_ship, na.rm = TRUE),
+#             in_hand_count = sum(in_hand, na.rm = TRUE),
+#             fly_by_count = sum(fly_by, na.rm = TRUE)) 
 ```
 
 
