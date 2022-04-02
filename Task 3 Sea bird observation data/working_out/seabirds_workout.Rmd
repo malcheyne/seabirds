@@ -138,12 +138,12 @@ clean_b_s <- bird_ship_data %>%
          common_name = if_else(str_detect(common_name, 
                                           "Westland / White-chinned petrel"),
                                           str_replace_all(common_name, 
-                                                        " \\/.*$",
+                                                        "^.*\\/ ",
                                                         ""), common_name),
          common_name = if_else(str_detect(common_name, 
                                           "Great-winged / Grey-faced petrel"),
                                           str_replace_all(common_name, 
-                                                        " \\/.*$",
+                                                        "^.*\\/ ",
                                                         ""), common_name),
          common_name = if_else(str_detect(common_name, 
                                           "Jaeger \\(unidentified\\)"),
@@ -356,5 +356,8 @@ short_b_s %>%
 # when the variations are combined as one group
 ```
 
+```{r}
+
+```
 
 
