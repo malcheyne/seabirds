@@ -40,7 +40,7 @@ position <- ship_data %>%
 
 
 
-# Graph Filters ----------------------------------------------------------------
+# Bird Tab Graph Filters ----------------------------------------------------------------
 
 fly_by <-  birds_21 %>% 
   group_by(bird_type) %>% 
@@ -67,7 +67,32 @@ sighting <-  birds_21 %>%
   group_by(bird_type) %>% 
   summarise(count = sum(total_sighting, na.rm = TRUE)) 
 
+# Var Tab ----------------------------------------------------------------------
 
+bird_count <- birds_21 %>%
+  group_by(bird_type) %>%
+  mutate(feeding = if_else(feeding %in% "YES", 1, 0),
+         on_ship = if_else(on_ship %in% "YES", 1, 0),
+         in_hand = if_else(in_hand %in% "YES", 1, 0),
+         fly_by = if_else(fly_by %in% "YES", 1, 0)) %>%
+  summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
+            feeding_count = sum(feeding, na.rm = TRUE),
+            on_ship_count = sum(on_ship, na.rm = TRUE),
+            in_hand_count = sum(in_hand, na.rm = TRUE),
+            fly_by_count = sum(fly_by, na.rm = TRUE))
+
+
+# bird_pick <- c(input$bird_input == "Flying By" ~ fly_by |
+#                        input$bird_input == "In Hand" ~ in_hand |
+#                        input$bird_input == "On Vessel" ~ on_ship |
+#                        input$bird_input == "Feeding" ~ feeding |
+#                        input$bird_input == "Sightings" ~ sighting)
+
+
+# variants <- birds_21 %>% 
+#   filter(bird_type == "var_input") %>% 
+#   group_by(common_name) %>% 
+#   summarise(count = n())
 
 # SelectInput Choices for global -----------------------------------------------
 

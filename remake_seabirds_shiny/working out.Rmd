@@ -433,7 +433,7 @@ library(leaflet)
 
   leaflet(data = birds_21) %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(label = birds_9$common_name, clusterOptions = markerClusterOptions()) 
+  addMarkers(label = birds_21$common_name, clusterOptions = markerClusterOptions()) 
   
  # Print the map
 ```
