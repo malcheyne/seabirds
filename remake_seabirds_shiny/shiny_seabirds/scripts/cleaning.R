@@ -67,7 +67,8 @@ birds_21 <- read_csv("clean_data/seabirds_cleaned_data.csv") %>%
     str_detect(common_name, 
                regex("procellaria", 
                      ignore_case = TRUE)) ~ "Procellaria",
-    TRUE ~ common_name))
+    TRUE ~ common_name)) %>% 
+  filter(!is.na(bird_type))
 
 birds_21
 

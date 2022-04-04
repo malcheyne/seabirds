@@ -67,9 +67,9 @@ server <- function(input, output) {
     #   filter(bird_type == "var_input"#,
     #          #date %in% var_slider()
     #          )
-    
-    
-    # variants <- 
+
+
+    # variants <-
     birds_21 %>%
       filter(bird_type == "var_input") %>%
       group_by(common_name) %>%
@@ -77,15 +77,20 @@ server <- function(input, output) {
 
   })
 
+  
+  # - final plot
+  output$var_plot <- renderPlot({
+    
   action_var() %>%
-  # variants %>%
-    # filter(bird_type == "var_input") %>% 
-    # ungroup() %>% 
-    # group_by(common_name) %>%
-    # summarise(count = n())
+  # birds_21 %>%
+  # filter(bird_type == #"Albatross") %>%
+  #           "var_input") %>%
+  # ungroup() %>%
+  # group_by(common_name) %>%
+  # summarise(count = n())
     ggplot() +
-    aes(y = action_var()$common_name,
-        x = action_var()$count, fill = action_var()$common_name) +
+    aes(y = birds_21$common_name,
+        x = birds_21$count, fill = birds_21$common_name) +
     geom_col(colour = "black") +
     theme(legend.position = "none") +
     scale_x_continuous() +
@@ -93,6 +98,7 @@ server <- function(input, output) {
          x = "Number of Birds Seen Flying BY\n Log10 scale") +
     scale_fill_manual(values = birds_pal)
 
+  })  
   
 # Sightings tab tab ------------------------------------------------------------
   
