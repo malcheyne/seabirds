@@ -67,7 +67,6 @@ sighting <-  birds_21 %>%
   group_by(bird_type) %>% 
   summarise(count = sum(total_sighting, na.rm = TRUE)) 
 
-# Var Tab ----------------------------------------------------------------------
 
 bird_count <- birds_21 %>%
   group_by(bird_type) %>%
@@ -81,6 +80,10 @@ bird_count <- birds_21 %>%
             in_hand_count = sum(in_hand, na.rm = TRUE),
             fly_by_count = sum(fly_by, na.rm = TRUE))
 
+# Var Tab ----------------------------------------------------------------------
+
+
+
 
 # bird_pick <- c(input$bird_input == "Flying By" ~ fly_by |
 #                        input$bird_input == "In Hand" ~ in_hand |
@@ -89,10 +92,10 @@ bird_count <- birds_21 %>%
 #                        input$bird_input == "Sightings" ~ sighting)
 
 
-# variants <- birds_21 %>% 
-#   filter(bird_type == "var_input") %>% 
-#   group_by(common_name) %>% 
-#   summarise(count = n())
+variants <- birds_21 %>%
+  filter(bird_type == "var_input") %>%
+  group_by(common_name) %>%
+  summarise(count = n())
 
 # SelectInput Choices for global -----------------------------------------------
 

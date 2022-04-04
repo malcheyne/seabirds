@@ -23,12 +23,12 @@ server <- function(input, output) {
   output$bird_plot <- renderPlot({
     
     bird_count %>%
-      filter(bird_type %in% input$bird_input,
+      select(bird_type, input$bird_input,
              #date %in% bird_slider()
       ) %>% 
       ggplot() +
       aes(y = bird_count$bird_type, 
-          x = bird_count$count, fill = bird_count$bird_type) +
+          x = bird_count$input$bird_input, fill = bird_count$bird_type) +
       geom_col(colour = "black") +
       theme(legend.position = "none") +
       scale_x_continuous(limits=c(0,max(sighting$count)), 
@@ -55,34 +55,44 @@ server <- function(input, output) {
   
 # Variants tab -----------------------------------------------------------------  
   
-  # # Date slider (reactive())
-  # var_slider <- reactive({
-  #   seq(input$var_date_range[1], input$var_date_range[2], by = 1)
-  # })
-  # 
-  # # Action button
-  # action_var <- eventReactive(input$change, ignoreNULL = FALSE, {
-  #   
-  #   bird_count %>% 
-  #     filter(bird_type == "var_input",
-  #            #date %in% var_slider()
-  #            ) 
-  #   
-  # })
-  # 
-  # action_var() %>% 
-  #   group_by(common_name) %>% 
-  #   summarise(count = n())
-  #   ggplot() +
-  #   aes(y = bird_count$common_name, 
-  #       x = bird_count$count, fill = bird_count$common_name) +
-  #   geom_col(colour = "black") +
-  #   theme(legend.position = "none") +
-  #   scale_x_continuous() +
-  #   labs(y = "\n Bird Names",
-  #        x = "Number of Birds Seen Flying BY\n Log10 scale") +
-  #   scale_fill_manual(values = birds_pal) 
-  # 
+  # Date slider (reactive())
+  var_slider <- reactive({
+    seq(input$var_date_range[1], input$var_date_range[2], by = 1)
+  })
+
+  # Action button
+  action_var <- eventReactive(input$change, ignoreNULL = FALSE, {
+
+    # bird_count %>%
+    #   filter(bird_type == "var_input"#,
+    #          #date %in% var_slider()
+    #          )
+    
+    
+    # variants <- 
+    birds_21 %>%
+      filter(bird_type == "var_input") %>%
+      group_by(common_name) %>%
+      summarise(count = n())
+
+  })
+
+  action_var() %>%
+  # variants %>%
+    # filter(bird_type == "var_input") %>% 
+    # ungroup() %>% 
+    # group_by(common_name) %>%
+    # summarise(count = n())
+    ggplot() +
+    aes(y = action_var()$common_name,
+        x = action_var()$count, fill = action_var()$common_name) +
+    geom_col(colour = "black") +
+    theme(legend.position = "none") +
+    scale_x_continuous() +
+    labs(y = "\n Bird Names",
+         x = "Number of Birds Seen Flying BY\n Log10 scale") +
+    scale_fill_manual(values = birds_pal)
+
   
 # Sightings tab tab ------------------------------------------------------------
   
