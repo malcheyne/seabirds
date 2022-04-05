@@ -677,4 +677,3 @@ data_dots %>%
   mutate(ship_date = as.Date(ship_date, "%y/%m/%d"),
          delivery_date = as.Date(delivery_date, "%y/%m/%d"))
 ```
-
