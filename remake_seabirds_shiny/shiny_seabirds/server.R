@@ -42,13 +42,13 @@ server <- function(input, output) {
     
     bird_count %>% 
       ggplot() +
-      aes(y = bird_count$bird_type, 
-          x = .data[[input$bird_input]], fill = bird_count$bird_type) +
+      aes(y = bird_type, 
+          x = .data[[input$bird_input]], fill = bird_type) +
       geom_col(colour = "black") +
       theme(legend.position = "none") +
-      scale_x_continuous(limits=c(0,max(sighting$count)), 
-                         breaks  = c(seq(0,max(sighting$count),
-                                         by = (max(sighting$count)/5))), 
+      scale_x_continuous(limits=c(0,max(.data[[input$bird_input$count]])), 
+                         breaks  = c(seq(0,max(.data[[input$bird_input$count]]),
+                                         by = (max(.data[[input$bird_input$count]])/5))), 
                         # trans = "log10"
                          ) +
       labs(y = "\n Bird Names",
