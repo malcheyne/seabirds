@@ -86,7 +86,9 @@ server <- function(input, output) {
 
     # variants <-
     birds_21 %>%
-      filter(bird_type == "var_input") %>%
+      filter(!is.na(bird_type),
+             bird_type == "var_input",
+             date %in% var_slider()) %>%
       group_by(common_name) %>%
       summarise(count = n())
 
