@@ -106,8 +106,8 @@ server <- function(input, output) {
   # group_by(common_name) %>%
   # summarise(count = n())
     ggplot() +
-    aes(y =  action_var()$common_name,
-        x =  action_var()$count, fill =  action_var()$common_name) +
+    aes(y =  .data[[action_var()$common_name]],
+        x =  .data[[action_var()$count]], fill =  .data[[action_var()$common_name]]) +
     geom_col(colour = "black") +
     theme(legend.position = "none") +
     scale_x_continuous() +
