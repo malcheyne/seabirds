@@ -128,6 +128,9 @@ birds_21 %>%
   
 ```
 
+# Bird Seen tab
+
+## not updated birds so have 3 extra with no colour asigned, shiny up to date 
 
 ```{r}
 sighting <-  birds_21 %>% 
@@ -264,6 +267,10 @@ breaks = c(1, 5, 10, 1000, 6000),
                        limits = c(1,6000), 
                        trans = "log10"
 
+
+# Tab 2 Variants tab
+
+
 ```{r}
 variants <- birds_21 %>% 
               filter(bird_type == "Albatross") %>% 
@@ -342,7 +349,7 @@ variants %>%
 
 
 
-
+# Tab 3 Sightings tab tab
 
 
 
@@ -441,6 +448,8 @@ library(leaflet)
 
 -45.91667
 165.4000
+
+# Tab 4 Vessel Location tab
 
 
 ```{r}
