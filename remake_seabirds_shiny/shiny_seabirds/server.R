@@ -7,28 +7,37 @@ server <- function(input, output) {
     seq(input$bird_date_range[1], input$bird_date_range[2], by = 1)
   })
   
-  # Action button
-  # action_bird <- eventReactive(input$update, ignoreNULL = FALSE, {
-  #   
-  #   #graph_input
-  #   
-  #   # bird_count %>%
-  #   # filter(bird_type %in% input$bird_input,
-  #   #        date %in% bird_slider()
-  #   #       )
-  # })
+  #Action button
+  action_bird <- eventReactive(input$update, ignoreNULL = FALSE, {
+
+    #graph_input
+
+    bird_count <- birds_21 %>%
+      filter(!is.na(bird_type),
+             bird_type %in% input$bird_input,
+             #date %in% bird_slider()
+             ) %>%
+      group_by(bird_type) %>%
+      mutate(feeding = if_else(feeding %in% "YES", 1, 0),
+             on_ship = if_else(on_ship %in% "YES", 1, 0),
+             in_hand = if_else(in_hand %in% "YES", 1, 0),
+             fly_by = if_else(fly_by %in% "YES", 1, 0)) %>%
+      summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
+                feeding_count = sum(feeding, na.rm = TRUE),
+                on_ship_count = sum(on_ship, na.rm = TRUE),
+                in_hand_count = sum(in_hand, na.rm = TRUE),
+                fly_by_count = sum(fly_by, na.rm = TRUE))
+    
+  })
   
   
   # - final plot
   output$bird_plot <- renderPlot({
     
-    bird_count %>%
-      select(bird_type, input$bird_input,
-             #date %in% bird_slider()
-      ) %>% 
+    action_bird() %>% 
       ggplot() +
       aes(y = bird_count$bird_type, 
-          x = bird_count$input$bird_input, fill = bird_count$bird_type) +
+          x = .data[[input$bird_input]], fill = bird_count$bird_type) +
       geom_col(colour = "black") +
       theme(legend.position = "none") +
       scale_x_continuous(limits=c(0,max(sighting$count)), 

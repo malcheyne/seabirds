@@ -25,11 +25,11 @@ body <- dashboardBody(
                               selectInput("bird_input",
                                           "Graphs",
                                           choices = 
-                                            c(bird_count$sighting_count,
-                                              bird_count$feeding_count,
-                                              bird_count$on_ship_count,
-                                              bird_count$in_hand_count,
-                                              bird_count$fly_by_count),
+                                            c("sighting_count",
+                                              "feeding_count",
+                                              "on_ship_count",
+                                              "in_hand_count",
+                                              "fly_by_count"),
                                             
                                             #unique(bird_count$),
                                           
