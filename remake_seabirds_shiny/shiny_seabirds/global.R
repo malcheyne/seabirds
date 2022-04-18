@@ -93,10 +93,10 @@ bird_count <- birds_21 %>%
 #                        input$bird_input == "Sightings" ~ sighting)
 
 
-# variants <- birds_21 %>%
-#   filter(bird_type == "var_input") %>%
-#   group_by(common_name) %>%
-#   summarise(count = n())
+variants <- birds_21 %>%
+  filter(bird_type == "var_input") %>%
+  group_by(common_name) %>%
+  summarise(count = n())
 
 # SelectInput Choices for global -----------------------------------------------
 

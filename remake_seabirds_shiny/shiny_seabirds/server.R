@@ -98,16 +98,16 @@ server <- function(input, output) {
   # - final plot
   output$var_plot <- renderPlot({
     
-  action_var() %>%
-  # birds_21 %>%
+  # action_var() %>%
+  variants %>%
   # filter(bird_type == #"Albatross") %>%
   #           "var_input") %>%
   # ungroup() %>%
   # group_by(common_name) %>%
-  # summarise(count = n())
+  # summarise(count = n()) %>% 
     ggplot() +
-    aes(y =  .data[[action_var()$common_name]],
-        x =  .data[[action_var()$count]], fill =  .data[[action_var()$common_name]]) +
+    aes(y =  .data[[variants$common_name]],
+        x =  .data[[variants$count]], fill =  .data[[variants$common_name]]) +
     geom_col(colour = "black") +
     theme(legend.position = "none") +
     scale_x_continuous() +
