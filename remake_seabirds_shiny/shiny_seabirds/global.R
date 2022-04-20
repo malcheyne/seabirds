@@ -105,7 +105,7 @@ variants_plot <- function(data, plot_input, log_scale = FALSE) {
         y = common_name,
         fill = common_name) +
     geom_col(colour = "black", show.legend = FALSE) +
-    scale_fill_manual(values = birds)
+    scale_fill_manual(values = birds_pal)
   
   # if the chose log scale add in a log scale  
   if (log_scale) p <- p + scale_x_continuous(trans = "log10") + 
