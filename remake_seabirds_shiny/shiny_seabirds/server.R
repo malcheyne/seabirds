@@ -53,11 +53,14 @@ server <- function(input, output) {
   
   output$sight_map <- renderLeaflet({
     
-    birds_21 %>% 
+    sight_map <-   birds_21 %>% 
+      filter(bird_type %in% input$sight_input)
+    
+    sight_map %>% 
     filter(bird_type %in% input$sight_input) %>% 
     leaflet() %>%
       addTiles() %>%
-      addMarkers(label = birds_21$common_name,
+      addMarkers(label = sight_map$common_name,
                  clusterOptions = markerClusterOptions())
   })
   

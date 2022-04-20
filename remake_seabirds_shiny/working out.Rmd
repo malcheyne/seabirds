@@ -438,12 +438,117 @@ library(leaflet)
 
 ```{r}
 
-  leaflet(data = birds_21) %>%
+# test inputs so they look like what shiny will give us for user inputs.
+input <- list(
+  sight_input = "Cormorant"
+)
+
+sight_map <-   birds_21 %>% 
+    filter(bird_type %in% input$sight_input)
+  
+sight_map%>% 
+    leaflet() %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(label = birds_21$common_name, clusterOptions = markerClusterOptions()) 
+  addMarkers(label = sight_map$common_name, clusterOptions = 
+               markerClusterOptions()) 
   
  # Print the map
 ```
+
+
+```{r}
+getColor <- function(sight_map) {
+  sapply(sight_map$bird_type, function(sight_map) {
+  case_when(sight_map$bird_type == "Tropicbird" ~ "#50e2ea",
+            sight_map$bird_type == "Tern" ~ "#4edae5",
+            sight_map$bird_type == "Skua" ~ "#4bd2df",
+            sight_map$bird_type == "Sheathbill" ~ "#49cada",
+            sight_map$bird_type == "Shearwater" ~ "#47c2d4",
+            sight_map$bird_type == "Shag" ~ "#45bbcf",
+            sight_map$bird_type == "Seabird" ~ "#42b3c9",
+            sight_map$bird_type == "Procellaria" ~ "#40abc4",
+            sight_map$bird_type == "Prion" ~ "#3ea3be", 
+            sight_map$bird_type == "Petrel" ~ "#3b9bb9", 
+            sight_map$bird_type == "Penguin" ~ "#3993b3",
+            sight_map$bird_type == "Noddy" ~ "#378bae", 
+            sight_map$bird_type == "Mollymawk" ~ "#3483a8", 
+            sight_map$bird_type == "Jaeger" ~ "#327ba3", 
+            sight_map$bird_type == "Gull" ~ "#30739d", 
+            sight_map$bird_type == "Gannet" ~ "#2e6c98", 
+            sight_map$bird_type == "Fulmar" ~ "#2b6492",
+            sight_map$bird_type == "Frigatebird" ~ "#295c8d",
+            sight_map$bird_type == "Cormorant" ~ "#275487",
+            sight_map$bird_type == "Booby" ~ "#244c82", 
+            sight_map$bird_type == "Albatross" ~ "#22447c",
+            TRUE ~ sight_map$bird_type
+    
+  ) })
+}
+
+
+icons <- awesomeIcons(
+  icon = 'ios-close',
+  iconColor = 'black',
+  library = 'ion',
+  markerColor = list("Tropicbird" = "#50e2ea", "Tern" = "#4edae5", "Skua" = "#4bd2df", 
+           "Sheathbill" = "#49cada", "Shearwater" = "#47c2d4", 
+           "Shag" = "#45bbcf", "Seabird" = "#42b3c9", "Procellaria" = "#40abc4",
+           "Prion" = "#3ea3be", "Petrel" = "#3b9bb9", "Penguin" = "#3993b3", 
+           "Noddy" = "#378bae", "Mollymawk" = "#3483a8", "Jaeger" = "#327ba3", 
+           "Gull" = "#30739d", "Gannet" = "#2e6c98", "Fulmar" = "#2b6492", 
+           "Frigatebird" = "#295c8d", "Cormorant" = "#275487", 
+           "Booby" = "#244c82", "Albatross" = "#22447c")
+)
+
+
+# test inputs so they look like what shiny will give us for user inputs.
+input <- list(
+  sight_input = "Cormorant"
+)
+
+sight_map <-   birds_21 %>% 
+    filter(bird_type %in% input$sight_input)
+  
+sight_map%>% 
+    leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addAwesomeMarkers(~long, ~lat, icon=icons, 
+                    label = sight_map$common_name,
+                    clusterOptions = markerClusterOptions()) 
+  
+ # Print the map
+```
+
+getColor <- function(quakes) {
+  sapply(position$date, function(date) {
+  case_when(str_detect(date, 
+             regex("^196", 
+                   ignore_case = TRUE)) ~ "green",
+            str_detect(date, 
+             regex("^197", 
+                   ignore_case = TRUE)) ~ "orange",
+             str_detect(date, 
+             regex("^198", 
+                   ignore_case = TRUE)) ~ "blue",
+             str_detect(date, 
+             regex("^199", 
+                   ignore_case = TRUE)) ~ "red"
+    
+  ) })
+}
+
+
+icons <- awesomeIcons(
+  icon = 'ios-close',
+  iconColor = 'black',
+  library = 'ion',
+  markerColor = getColor(position)
+)
+
+leaflet(position) %>% addTiles() %>%
+  addAwesomeMarkers(~long, ~lat, icon=icons, label=~as.character(date))
+
+
 
 
 -45.91667
