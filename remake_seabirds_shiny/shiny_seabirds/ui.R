@@ -124,6 +124,30 @@ body <- dashboardBody(
               # space between the top bar and the main page
               br(),
               
+              # element for the top row
+              fluidRow(column(width = 4,
+                              br(),
+                              selectInput("sight_input",
+                                          "Bird Types",
+                              choices = unique(birds_21$bird_type),
+                              selected = "Albatross")
+              ),
+              column(width = 5,
+                     br(),
+                     setSliderColor(c("#42A5F5", "#42A5F5", "#42A5F5"),
+                                    c(1,2,3)),
+                     sliderInput("sight_date_range", label = "Date Range",
+                                 min = as.Date("1969-07-31","%Y-%m-%d"),
+                                 max = as.Date("1990-12-21","%Y-%m-%d"),
+                                 value = c(as.Date("1969-07-31"),
+                                           as.Date("1990-12-21")),
+                                 timeFormat="%Y-%m",
+                                 step = 90,
+                                 ticks = FALSE
+                     )
+              )
+              ),
+              
               # element for the main row, first half - placeholder plot
               fluidRow(column(width = 12,
                               br(),
