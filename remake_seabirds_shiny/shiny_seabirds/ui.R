@@ -20,23 +20,16 @@ body <- dashboardBody(
               br(),
               
               # element for the top row
-              fluidRow(column(width = 5,
+              fluidRow(column(width = 4,
                               br(),
                               selectInput("bird_input",
                                           "Graphs",
                                           choices = 
-                                            c("sighting_count",
-                                              "feeding_count",
-                                              "on_ship_count",
-                                              "in_hand_count",
-                                              "fly_by_count"),
-                                            
-                                            #unique(bird_count$),
-                                          
-                                          
-                                            # c("Flying By", "In Hand",
-                                            #           "On Vessel", "Feeding",
-                                            #           "Sightings"),
+                                            list("Sighted" = "sighting_count",
+                                                 "Feeding" = "feeding_count",
+                                                 "On Vessel" = "on_ship_count",
+                                                 "In Hand" = "in_hand_count",
+                                                " Flying By" = "fly_by_count"),
                                           selected = bird_count$sighting_count)
               ),
               column(width = 5,
@@ -53,10 +46,13 @@ body <- dashboardBody(
                                  ticks = FALSE
                      )
               ),
-              column(width = 2,
+              column(width = 3,
                      br(),
-                     actionButton("update",
-                                  "Apply Changes")
+                     selectInput("bird_log",
+                                 "Log Graph",
+                                 choices =
+                                   list("Yes" = TRUE,
+                                        "No" = FALSE))
               )
               ),
               
@@ -78,7 +74,7 @@ body <- dashboardBody(
               br(),
               
               # element for the top row
-              fluidRow(column(width = 5,
+              fluidRow(column(width = 4,
                               br(),
                               selectInput("var_input",
                                           "Bird Types",
@@ -99,10 +95,13 @@ body <- dashboardBody(
                                  ticks = FALSE
                      )
               ),
-              column(width = 2,
+              column(width = 3,
                      br(),
-                     actionButton("change",
-                                  "Apply Changes")
+                     selectInput("var_log",
+                                 "Log Graph",
+                                 choices =
+                                   list("Yes" = TRUE,
+                                        "No" = FALSE))
               )
               ),
               

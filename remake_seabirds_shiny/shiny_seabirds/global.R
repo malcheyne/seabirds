@@ -42,32 +42,6 @@ position <- ship_data %>%
 
 # Bird Tab Graph Filters ----------------------------------------------------------------
 
-# fly_by <-  birds_21 %>% 
-#   group_by(bird_type) %>% 
-#   filter(str_detect(fly_by, "YES")) %>% 
-#   summarise(count = n()) 
-# 
-# in_hand <-  birds_21 %>% 
-#   group_by(bird_type) %>% 
-#   filter(str_detect(in_hand, "YES")) %>% 
-#   summarise(count = n())  
-# 
-# on_ship <-  birds_21 %>% 
-#   group_by(bird_type) %>% 
-#   filter(str_detect(on_ship, "YES")) %>% 
-#   summarise(count = n()) 
-# 
-# feeding <-  birds_21 %>% 
-#   group_by(bird_type) %>% 
-#   filter(str_detect(feeding, "YES")) %>% 
-#   summarise(count = n()) 
-# 
-# sighting <-  birds_21 %>% 
-#   filter(!is.na(bird_type)) %>% 
-#   group_by(bird_type) %>% 
-#   summarise(count = sum(total_sighting, na.rm = TRUE)) 
-
-
 bird_count <- birds_21 %>%
   filter(!is.na(bird_type)) %>%
   group_by(bird_type) %>%
@@ -81,22 +55,74 @@ bird_count <- birds_21 %>%
             in_hand_count = sum(in_hand, na.rm = TRUE),
             fly_by_count = sum(fly_by, na.rm = TRUE))
 
+
+
+make_bird_plot <- function(data, plot_input, log_scale = FALSE) {
+  
+  # calculate maximum limits based on the data
+  max_count <- max(data[[plot_input]])
+  
+  # ... then make the plot
+  p <- data %>% 
+    ggplot() +
+    aes(x = .data[[plot_input]],
+        y = bird_type,
+        fill = bird_type) +
+    geom_col(colour = "black", show.legend = FALSE) +
+    scale_fill_manual(values = birds)
+  
+  # if the chose log scale add in a log scale  
+  if (log_scale) p <- p + scale_x_continuous(trans = "log10") + 
+    labs(y = "\n Bird Names",
+         x = "Number of Birds Seen \n Log10 scale")
+  # otherwise do your manual scale option using the calculated value max_count
+  else p <- p + scale_x_continuous(
+    limits = c(0,max_count),
+    breaks  = c(seq(0,max_count, (max_count)/5)) 
+  ) +
+    labs(y = "\n Bird Names",
+         x = "Number of Birds Seen")
+  
+  return(p)
+}
+
+
 # Var Tab ----------------------------------------------------------------------
 
+variants_plot <- function(data, plot_input, log_scale = FALSE) {
+  
+  # calculate maximum limits based on the data
+  #max_count <- max(data[[plot_input]])
+  
+  
+  # ... then make the plot
+  p <- data %>% 
+    filter(bird_type == plot_input) %>% 
+    group_by(common_name) %>% 
+    summarise(count = n()) %>% 
+    ggplot() +
+    aes(x = count,
+        y = common_name,
+        fill = common_name) +
+    geom_col(colour = "black", show.legend = FALSE) +
+    scale_fill_manual(values = birds)
+  
+  # if the chose log scale add in a log scale  
+  if (log_scale) p <- p + scale_x_continuous(trans = "log10") + 
+      labs(y = "\n Bird Names",
+           x = "Number of Birds Seen \n Log10 scale")
+  # otherwise do your manual scale option using the calculated value max_count
+  else p <- p + 
+      #   scale_x_continuous(
+      # limits = c(0,max_count),
+      # breaks  = c(seq(0,max_count, (max_count)/5)) 
+      # ) +
+      labs(y = "\n Bird Names",
+           x = "Number of Birds Seen")
+  
+  return(p)
+}
 
-
-
-# bird_pick <- c(input$bird_input == "Flying By" ~ fly_by |
-#                        input$bird_input == "In Hand" ~ in_hand |
-#                        input$bird_input == "On Vessel" ~ on_ship |
-#                        input$bird_input == "Feeding" ~ feeding |
-#                        input$bird_input == "Sightings" ~ sighting)
-
-
-variants <- birds_21 %>%
-  filter(bird_type == "var_input") %>%
-  group_by(common_name) %>%
-  summarise(count = n())
 
 # SelectInput Choices for global -----------------------------------------------
 
@@ -104,9 +130,7 @@ variants <- birds_21 %>%
 
 
 
-# graph_input <- as.data.frame(c("Flying By" = fly_by, "In Hand" = in_hand,
-#                                "On Vessel" = on_ship, "Feeding" = feeding,
-#                                "Sightings" = sighting))
+
 
 # Pallets ----------------------------------------------------------------------
 
