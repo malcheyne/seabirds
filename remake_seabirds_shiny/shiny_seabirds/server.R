@@ -53,8 +53,14 @@ server <- function(input, output) {
   
   output$sight_map <- renderLeaflet({
     
+    # Date slider (reactive())
+    var_slider <- reactive({
+      seq(input$sight_date_range[1], input$sight_date_range[2], by = 1)
+    })
+    
     sight_map <-   birds_21 %>% 
-      filter(bird_type %in% input$sight_input)
+      filter(bird_type %in% input$sight_input,
+             date %in% var_slider())
     
     sight_map %>% 
     filter(bird_type %in% input$sight_input) %>% 
