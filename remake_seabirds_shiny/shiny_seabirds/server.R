@@ -12,7 +12,7 @@ server <- function(input, output) {
   bird_graph <- reactive(
     make_bird_plot(bird_count, input$bird_input, 
                    log_scale = input$bird_log, 
-                   bird_slider)
+                   bird_slider())
   )
   
   # - final plot
@@ -43,7 +43,7 @@ server <- function(input, output) {
   var_graph <- reactive(
     variants_plot(birds_21, input$var_input, 
                   log_scale = input$var_log, 
-                  var_slider)
+                  var_slider())
   )
 
   
