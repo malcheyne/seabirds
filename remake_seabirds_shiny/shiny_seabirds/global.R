@@ -63,9 +63,12 @@ make_bird_plot <- function(data, plot_input,
   # calculate maximum limits based on the data
   max_count <- max(data[[plot_input]])
   
+  bird_slider <- seq(bird_start, bird_end, by = 1)
+  
+  
   # ... then make the plot
   p <- data %>% 
-    filter(date %in% seq(bird_start, bird_end, by = 1)) %>% 
+    filter(date %in% bird_slider) %>% 
     ggplot() +
     aes(x = .data[[plot_input]],
         y = bird_type,
@@ -97,11 +100,12 @@ variants_plot <- function(data, plot_input,
   # calculate maximum limits based on the data
   #max_count <- max(data[[plot_input]])
   
+  var_slider <- seq(var_start, var_end, by = 1)
   
   # ... then make the plot
   p <- data %>% 
     filter(bird_type == plot_input,
-           date %in% seq(var_start, var_end, by = 1)) %>% 
+           date %in% var_slider) %>% 
     group_by(common_name) %>% 
     summarise(count = n()) %>% 
     ggplot() +
