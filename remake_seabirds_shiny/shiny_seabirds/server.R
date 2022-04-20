@@ -3,16 +3,16 @@ server <- function(input, output) {
 # Bird Seen tab ----------------------------------------------------------------
   
   # Date slider (reactive())
-  bird_slider <- reactive({
-    seq(input$bird_date_range[1], input$bird_date_range[2], by = 1)
-  })
+  # bird_slider <- reactive({
+  #   seq(input$bird_date_range[1], input$bird_date_range[2], by = 1)
+  # })
   
   
   # reactive, depends on the user's input
   bird_graph <- reactive(
     make_bird_plot(bird_count, input$bird_input, 
                    log_scale = input$bird_log, 
-                   bird_slider())
+                   input$bird_date_range[1], input$bird_date_range[2])
   )
   
   # - final plot
@@ -43,7 +43,7 @@ server <- function(input, output) {
   var_graph <- reactive(
     variants_plot(birds_21, input$var_input, 
                   log_scale = input$var_log, 
-                  var_slider())
+                  input$var_date_range[1], input$var_date_range[2])
   )
 
   
