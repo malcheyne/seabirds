@@ -62,6 +62,7 @@ body <- dashboardBody(
                               plotOutput("bird_plot"),
                               
                               # bottom right box with text description
+                              br(),
                               textOutput("bird_text"),
               )
               )
@@ -111,6 +112,7 @@ body <- dashboardBody(
                               plotOutput("var_plot"),
                               
                               # bottom right box with text description
+                              br(),
                               textOutput("var_text"),
               )
               ) 
@@ -155,6 +157,7 @@ body <- dashboardBody(
                               
                               
                               # bottom right box with text description
+                              br(),
                               textOutput("sight_text"),
               )
               )

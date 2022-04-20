@@ -24,7 +24,7 @@ server <- function(input, output) {
   #  text
   output$bird_text <- renderText({
     br()
-    print("TEXT")
+    print("Here are the numbers and species of birds seen")
   })
   
   
@@ -47,7 +47,13 @@ server <- function(input, output) {
   output$var_plot <- renderPlot({
     
     var_graph()
-  })  
+  }) 
+  
+  #  text
+  output$var_text <- renderText({
+    br()
+    print("Here are the variants of each species of birds seen")
+  })
   
 # Sightings tab tab ------------------------------------------------------------
   
@@ -67,7 +73,7 @@ server <- function(input, output) {
   #  text
   output$sight_text <- renderText({
     br()
-    print("TEXT")
+    print("Here are the locations and variants each species of birds seen")
   })
   
 # Vessel Location tab ----------------------------------------------------------
