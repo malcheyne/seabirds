@@ -456,6 +456,38 @@ sight_map%>%
 ```
 
 
+
+```{r}
+# test inputs so they look like what shiny will give us for user inputs.
+input <- list(
+  sight_input = "Cormorant"
+)
+
+input2 <- list(
+  sight_date_range = "1980-03-28"
+)
+
+input3 <- list(
+  sight_date_range = "1985-02-13"
+)
+
+
+sight_map <-   birds_21 %>% 
+    filter(bird_type %in% input$sight_input,
+           between(date, input2$sight_date_range, 
+                   input3$sight_date_range))
+  
+sight_map%>% 
+    leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(label = sight_map$common_name, clusterOptions = 
+               markerClusterOptions()) 
+  
+ # Print the map
+```
+
+
+
 ```{r}
 getColor <- function(sight_map) {
   sapply(sight_map$bird_type, function(sight_map) {
