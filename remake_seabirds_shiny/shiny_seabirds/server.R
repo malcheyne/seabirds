@@ -32,11 +32,6 @@ server <- function(input, output) {
 
 # Variants tab -----------------------------------------------------------------
 
-  # Date slider (reactive())
-  var_slider <- reactive({
-    seq(input$var_date_range[1], input$var_date_range[2], by = 1)
-  })
-
   #  reactive, depends on the user's input
   var_graph <- reactive(
     variants_plot(birds_21, input$var_input,
@@ -59,11 +54,6 @@ server <- function(input, output) {
 
 # Sightings tab tab ------------------------------------------------------------
 
-  # Date slider (reactive())
-  # var_slider <- reactive({
-  #   seq(input$sight_date_range[1], input$sight_date_range[2], by = 1)
-  # })
-
   output$sight_map <- renderLeaflet({
 
 
@@ -74,10 +64,13 @@ server <- function(input, output) {
 
     sight_map %>%
     filter(bird_type %in% input$sight_input) %>%
-    leaflet() %>%
+      leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
+      htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)
+    }") %>%
       addTiles() %>%
       addMarkers(label = sight_map$common_name,
-                 clusterOptions = markerClusterOptions())
+                 clusterOptions = markerClusterOptions()) 
   })
 
   #  text

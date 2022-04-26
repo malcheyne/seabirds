@@ -95,10 +95,6 @@ make_bird_plot <- function(data, plot_input, log_scale = FALSE) {
 variants_plot <- function(data, plot_input,
                           log_scale = FALSE, var_start, var_end) {
 
-  # calculate maximum limits based on the data
-  #max_count <- max(data[[plot_input]])
-
-  var_slider <- seq(var_start, var_end, by = 1)
 
   # ... then make the plot
   p <- data %>%
@@ -119,10 +115,6 @@ variants_plot <- function(data, plot_input,
            x = "Number of Birds Seen \n Log10 scale")
   # otherwise do your manual scale option using the calculated value max_count
   else p <- p +
-      #   scale_x_continuous(
-      # limits = c(0,max_count),
-      # breaks  = c(seq(0,max_count, (max_count)/5))
-      # ) +
       labs(y = "\n Bird Names",
            x = "Number of Birds Seen")
 
