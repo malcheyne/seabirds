@@ -30,7 +30,7 @@ body <- dashboardBody(
                                                  "On Vessel" = "on_ship_count",
                                                  "In Hand" = "in_hand_count",
                                                 " Flying By" = "fly_by_count"),
-                                          selected = bird_count$sighting_count)
+                                          selected = bird_range$sighting_count)
               ),
               column(width = 5,
                      br(),
