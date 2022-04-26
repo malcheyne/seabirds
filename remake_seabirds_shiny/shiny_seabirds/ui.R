@@ -129,10 +129,14 @@ body <- dashboardBody(
               # element for the top row
               fluidRow(column(width = 4,
                               br(),
-                              selectInput("sight_input",
-                                          "Bird Types",
-                              choices = unique(birds_21$bird_type),
-                              selected = "Albatross")
+                              pickerInput(
+                                inputId = "sight_input",
+                                label = "Bird Types",
+                                choices = unique(birds_21$bird_type),
+                                selected = "Albatross",
+                                options = list(`actions-box` = TRUE),
+                                multiple = T
+                              )
               ),
               column(width = 5,
                      br(),
