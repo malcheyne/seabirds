@@ -63,12 +63,12 @@ make_bird_plot <- function(data, plot_input,
   # calculate maximum limits based on the data
   max_count <- max(data[[plot_input]])
   
-  bird_slider <- seq(bird_start, bird_end, by = 1)
+  
   
   
   # ... then make the plot
   p <- data %>% 
-    filter(date %in% bird_slider) %>% 
+    filter(date >= bird_start & date <= bird_end) %>%
     ggplot() +
     aes(x = .data[[plot_input]],
         y = bird_type,
@@ -104,8 +104,8 @@ variants_plot <- function(data, plot_input,
   
   # ... then make the plot
   p <- data %>% 
-    filter(bird_type == plot_input,
-           date %in% var_slider) %>% 
+    filter(bird_type == plot_input) %>% 
+    filter(date >= var_start & date <= var_end) %>% 
     group_by(common_name) %>% 
     summarise(count = n()) %>% 
     ggplot() +
@@ -113,7 +113,7 @@ variants_plot <- function(data, plot_input,
         y = common_name,
         fill = common_name) +
     geom_col(colour = "black", show.legend = FALSE) +
-    scale_fill_manual(values = birds)
+    scale_fill_manual(values = birds_pal)
   
   # if the chose log scale add in a log scale  
   if (log_scale) p <- p + scale_x_continuous(trans = "log10") + 
