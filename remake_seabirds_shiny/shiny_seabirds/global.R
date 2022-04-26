@@ -58,7 +58,7 @@ bird_count <- birds_21 %>%
 
 
 make_bird_plot <- function(data, plot_input, 
-                           log_scale = FALSE, bird_start, bird_end) {
+                           log_scale = FALSE) {
   
   # calculate maximum limits based on the data
   max_count <- max(data[[plot_input]])
@@ -68,7 +68,6 @@ make_bird_plot <- function(data, plot_input,
   
   # ... then make the plot
   p <- data %>% 
-    filter(date >= bird_start & date <= bird_end) %>%
     ggplot() +
     aes(x = .data[[plot_input]],
         y = bird_type,

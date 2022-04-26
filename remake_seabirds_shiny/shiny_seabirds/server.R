@@ -8,11 +8,28 @@ server <- function(input, output) {
   })
   
   
+  bird_count <- reactive({
+    birds_21 %>%
+    filter(!is.na(bird_type)) %>%
+    filter(date >= input$bird_date_range[1] & 
+             date <= input$bird_date_range[2]) %>%
+    group_by(bird_type) %>%
+    mutate(feeding = if_else(feeding %in% "YES", 1, 0),
+           on_ship = if_else(on_ship %in% "YES", 1, 0),
+           in_hand = if_else(in_hand %in% "YES", 1, 0),
+           fly_by = if_else(fly_by %in% "YES", 1, 0)) %>%
+    summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
+              feeding_count = sum(feeding, na.rm = TRUE),
+              on_ship_count = sum(on_ship, na.rm = TRUE),
+              in_hand_count = sum(in_hand, na.rm = TRUE),
+              fly_by_count = sum(fly_by, na.rm = TRUE))
+    })
+  
+  
   # reactive, depends on the user's input
   bird_graph <- reactive(
     make_bird_plot(bird_count, input$bird_input, 
-                   log_scale = input$bird_log, 
-                   input$bird_date_range[1], input$bird_date_range[2])
+                   log_scale = input$bird_log)
   )
   
   # - final plot
