@@ -60,9 +60,9 @@ server <- function(input, output) {
     
     
     sight_map <-   birds_21 %>% 
-      filter(bird_type %in% input$sight_input,
-             #between(date, input$sight_date_range[1], input$sight_date_range[2])
-             )
+      filter(bird_type %in% input$sight_input) %>% 
+      filter(date >= input$sight_date_range[1] & 
+               date <= input$sight_date_range[2])
     
     sight_map %>% 
     filter(bird_type %in% input$sight_input) %>% 
