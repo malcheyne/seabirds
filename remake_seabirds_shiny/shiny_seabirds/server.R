@@ -6,6 +6,12 @@ server <- function(input, output) {
   bird_slider <- reactive({
     seq(input$bird_date_range[1], input$bird_date_range[2], by = 1)
   })
+  
+  
+  bird_range <- reactive({birds_21 %>% 
+    filter(date >= input$bird_date_range[1] & 
+             date <= input$bird_date_range[2])
+  })
 
 
   # reactive, depends on the user's input
