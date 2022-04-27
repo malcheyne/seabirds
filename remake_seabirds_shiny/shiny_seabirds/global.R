@@ -127,17 +127,17 @@ variants_plot <- function(data, plot_input,
 # Vessel Tab -------------------------------------------------------------------
 
 late_60 <- birds_21 %>% 
-  filter(date %in% c("1965" | "1966" | "1967" | "1968" | "1969"))
+  filter(date %in% "^196[5-9]")
 early_70 <- birds_21 %>%
-  filter(date %in% c("1970" | "1971" | "1972" | "1973" | "1974"))
+  filter(date %in% "^197[0-4]")
 late_70 <- birds_21 %>%
-  filter(date %in% c("1975" | "1976" | "1977" | "1978" | "1979"))
+  filter(date %in% "^197[5-9]")
 early_80 <- birds_21 %>%
-  filter(date %in% c("1980" | "1981" | "1982" | "1983" | "1984"))
+  filter(date %in% "^198[0-4]")
 late_80 <- birds_21 %>%
-  filter(date %in% c("1985" | "1986" | "1987" | "1988" | "1989"))
+  filter(date %in% "^198[5-9]")
 early_90 <- birds_21 %>%
-  filter(date %in% c("1990" | "1991" | "1992" | "1993" | "1994"))
+  filter(date %in% "^199[0-4]")
 
 
 
