@@ -83,8 +83,7 @@ server <- function(input, output) {
 
   output$vessl_map <- renderLeaflet({
     
-    birds_21 %>% 
-      filter(date %in% input$vessel_input) %>% 
+    input$vessel_input %>% 
       leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
       htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)

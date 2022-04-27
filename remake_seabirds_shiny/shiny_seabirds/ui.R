@@ -180,7 +180,7 @@ body <- dashboardBody(
                               pickerInput(
                                 inputId = "vessel_input",
                                 label = "Five year blocks",
-                                choices = list(
+                                choices = c(
                                   "65-69" = late_60, "70-74" = early_70, 
                                   "75-79" = late_70, "80-84" = early_80, 
                                   "85-89" = late_80, "90-95" = early_90),
