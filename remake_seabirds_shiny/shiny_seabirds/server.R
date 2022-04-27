@@ -93,7 +93,7 @@ server <- function(input, output) {
       addTiles() %>%
       addPolylines(lng = ~long, lat = ~lat, 
                    #group = getColor(position), 
-                   color = ~getColor(position)
+                   #color = ~getColor(position)
                    ) %>% 
       addAwesomeMarkers(lng = ~long, lat = ~lat,
                  label = ~date, icon=icons,

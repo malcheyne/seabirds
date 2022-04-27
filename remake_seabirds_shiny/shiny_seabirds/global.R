@@ -149,7 +149,7 @@ getColor <- function(quakes) {
   sapply(position$date, function(date) {
     case_when(str_detect(date, 
                          regex("^19[6-9]0", 
-                               ignore_case = TRUE)) ~ "green",
+                               ignore_case = TRUE)) ~ "lightgreen",
               str_detect(date, 
                          regex("^19[6-9]1", 
                                ignore_case = TRUE)) ~ "orange",
@@ -176,7 +176,7 @@ getColor <- function(quakes) {
                                ignore_case = TRUE)) ~ "lightred",
               str_detect(date, 
                          regex("^19[6-9]9", 
-                               ignore_case = TRUE)) ~ "cadetblue",
+                               ignore_case = TRUE)) ~ "darkblue",
               
     ) })
 }
