@@ -42,22 +42,12 @@ position <- ship_data %>%
 
 # Bird Tab Graph Filters ----------------------------------------------------------------
 
-bird_count <- birds_21 %>%
-  filter(!is.na(bird_type)) %>%
-  group_by(bird_type) %>%
-  mutate(feeding = if_else(feeding %in% "YES", 1, 0),
-         on_ship = if_else(on_ship %in% "YES", 1, 0),
-         in_hand = if_else(in_hand %in% "YES", 1, 0),
-         fly_by = if_else(fly_by %in% "YES", 1, 0)) %>%
-  summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
-            feeding_count = sum(feeding, na.rm = TRUE),
-            on_ship_count = sum(on_ship, na.rm = TRUE),
-            in_hand_count = sum(in_hand, na.rm = TRUE),
-            fly_by_count = sum(fly_by, na.rm = TRUE))
+ 
 
 
 
-make_bird_plot <- function(data, plot_input, log_scale = FALSE) {
+make_bird_plot <- function(data, plot_input, log_scale = FALSE, 
+                           bird_start, bird_end) {
 
   # calculate maximum limits based on the data
   max_count <- max(data[[plot_input]])
@@ -67,6 +57,18 @@ make_bird_plot <- function(data, plot_input, log_scale = FALSE) {
 
   # ... then make the plot
   p <- data %>%
+    filter(!is.na(bird_type)) %>%
+    filter(date >= bird_start & date <= bird_end) %>%
+    group_by(bird_type) %>%
+    mutate(feeding = if_else(feeding %in% "YES", 1, 0),
+           on_ship = if_else(on_ship %in% "YES", 1, 0),
+           in_hand = if_else(in_hand %in% "YES", 1, 0),
+           fly_by = if_else(fly_by %in% "YES", 1, 0)) %>%
+    summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
+              feeding_count = sum(feeding, na.rm = TRUE),
+              on_ship_count = sum(on_ship, na.rm = TRUE),
+              in_hand_count = sum(in_hand, na.rm = TRUE),
+              fly_by_count = sum(fly_by, na.rm = TRUE))
     ggplot() +
     aes(x = .data[[plot_input]],
         y = bird_type,
