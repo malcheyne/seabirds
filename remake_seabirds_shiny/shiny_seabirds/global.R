@@ -23,7 +23,9 @@ library(readxl)
 
 # Source scripts & read clean data ----------------------------------------
 
-birds_21 <- read_csv("clean_data/birds_cleaned_data.csv", lazy = F)
+birds_21 <- read_csv("clean_data/birds_cleaned_data.csv", lazy = F) %>%
+  filter(!is.na(bird_type)) 
+
 ship_data <- read_excel("raw_data/seabirds.xls",
                         sheet = "Ship data by record ID") %>%
   clean_names()
@@ -42,20 +44,47 @@ position <- ship_data %>%
 
 # Bird Tab Graph Filters ----------------------------------------------------------------
 
-bird_count <- birds_21 %>%
-  filter(!is.na(bird_type)) %>%
-  group_by(bird_type) %>%
-  mutate(feeding = if_else(feeding %in% "YES", 1, 0),
-         on_ship = if_else(on_ship %in% "YES", 1, 0),
-         in_hand = if_else(in_hand %in% "YES", 1, 0),
-         fly_by = if_else(fly_by %in% "YES", 1, 0)) %>%
-  summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
-            feeding_count = sum(feeding, na.rm = TRUE),
-            on_ship_count = sum(on_ship, na.rm = TRUE),
-            in_hand_count = sum(in_hand, na.rm = TRUE),
-            fly_by_count = sum(fly_by, na.rm = TRUE))
+# bird_count <- birds_21  %>%
+#   summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
+#             feeding_count = sum(feeding, na.rm = TRUE),
+#             on_ship_count = sum(on_ship, na.rm = TRUE),
+#             in_hand_count = sum(in_hand, na.rm = TRUE),
+#             fly_by_count = sum(fly_by, na.rm = TRUE))
 
+sighting <-  birds_21 %>% 
+  filter(!is.na(bird_type)) %>% 
+  filter(date >= input$bird_date_range[1] & 
+           date <= input$bird_date_range[2]) %>% 
+  group_by(bird_type) %>% 
+  summarise(count = sum(total_sighting, na.rm = TRUE))
 
+feeding <-  birds_21 %>% 
+  filter(date >= input$bird_date_range[1] & 
+           date <= input$bird_date_range[2]) %>% 
+  group_by(bird_type) %>% 
+  filter(str_detect(feeding, "YES")) %>% 
+  summarise(count = n())
+
+on_ship <-  birds_21 %>% 
+  filter(date >= input$bird_date_range[1] & 
+           date <= input$bird_date_range[2]) %>% 
+  group_by(bird_type) %>% 
+  filter(str_detect(on_ship, "YES")) %>% 
+  summarise(count = n())
+
+in_hand <-  birds_21 %>% 
+  filter(date >= input$bird_date_range[1] & 
+           date <= input$bird_date_range[2]) %>% 
+  group_by(bird_type) %>% 
+  filter(str_detect(in_hand, "YES")) %>% 
+  summarise(count = n())
+
+fly_by <-  birds_21 %>% 
+  filter(date >= input$bird_date_range[1] & 
+           date <= input$bird_date_range[2]) %>% 
+  group_by(bird_type) %>% 
+  filter(str_detect(fly_by, "YES")) %>% 
+  summarise(count = n())
 
 make_bird_plot <- function(data, plot_input, log_scale = FALSE) {
 
