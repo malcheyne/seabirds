@@ -126,20 +126,24 @@ variants_plot <- function(data, plot_input,
 
 # Vessel Tab -------------------------------------------------------------------
 
-late_60 <- position %>% 
-  filter(str_detect(date, "^196[5-9]"))
-early_70 <- position %>%
-  filter(str_detect(date, "^197[0-4]"))
-late_70 <- position %>%
-  filter(str_detect(date, "^197[5-9]"))
-early_80 <- position %>%
-  filter(str_detect(date, "^198[0-4]"))
-late_80 <- position %>%
-  filter(str_detect(date, "^198[5-9]"))
-early_90 <- position %>%
-  filter(str_detect(date, "^199[0-4]"))
+# late_60 <- position %>% 
+#   filter(str_detect(date, "^196[5-9]"))
+# early_70 <- position %>%
+#   filter(str_detect(date, "^197[0-4]"))
+# late_70 <- position %>%
+#   filter(str_detect(date, "^197[5-9]"))
+# early_80 <- position %>%
+#   filter(str_detect(date, "^198[0-4]"))
+# late_80 <- position %>%
+#   filter(str_detect(date, "^198[5-9]"))
+# early_90 <- position %>%
+#   filter(str_detect(date, "^199[0-4]"))
 
-
+late_60 <- "^196[5-9]"
+late_70 <- "^197[5-9]"
+early_80 <- "^198[0-4]"
+late_80 <- "^198[5-9]"
+early_90 <- "^199[0-4]"
 
 
 

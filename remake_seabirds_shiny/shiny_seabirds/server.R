@@ -83,13 +83,13 @@ server <- function(input, output) {
 
   output$vessel_map <- renderLeaflet({
     
-    input$vessel_input %>% 
-      leaflet(
-        options = leafletOptions(zoomControl = FALSE)) %>%
+    position %>% 
+      filter(str_detect(date, input$vessel_input)) %>% 
+      leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
       htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)
-    }"
-    ) %>%
+        }"
+      ) %>%
       addTiles() %>%
       addPolylines(lng = ~long, lat = ~lat, #group = ~group
                    ) %>% 
