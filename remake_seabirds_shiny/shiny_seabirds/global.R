@@ -59,30 +59,18 @@ sighting_start <-  birds_21 %>%
 
 make_bird_data <- function(data) {
 
-sighting <-  bird_range %>% 
-  filter(!is.na(bird_type)) %>%  
-  group_by(bird_type) %>% 
-  summarise(count = sum(total_sighting, na.rm = TRUE))
-
-feeding <-  bird_range %>% 
-  group_by(bird_type) %>% 
-  filter(str_detect(feeding, "YES")) %>% 
-  summarise(count = n())
-
-on_ship <-  bird_range %>%  
-  group_by(bird_type) %>% 
-  filter(str_detect(on_ship, "YES")) %>% 
-  summarise(count = n())
-
-in_hand <-  bird_range %>% 
-  group_by(bird_type) %>% 
-  filter(str_detect(in_hand, "YES")) %>% 
-  summarise(count = n())
-
-fly_by <-  bird_range %>% 
-  group_by(bird_type) %>% 
-  filter(str_detect(fly_by, "YES")) %>% 
-  summarise(count = n())
+  data %>% 
+  filter(!is.na(bird_type)) %>%
+    group_by(bird_type) %>%
+    mutate(feeding = if_else(feeding %in% "YES", 1, 0),
+           on_ship = if_else(on_ship %in% "YES", 1, 0),
+           in_hand = if_else(in_hand %in% "YES", 1, 0),
+           fly_by = if_else(fly_by %in% "YES", 1, 0)) %>%
+    summarise(sighting_count = sum(total_sighting, na.rm = TRUE),
+              feeding_count = sum(feeding, na.rm = TRUE),
+              on_ship_count = sum(on_ship, na.rm = TRUE),
+              in_hand_count = sum(in_hand, na.rm = TRUE),
+              fly_by_count = sum(fly_by, na.rm = TRUE))
 
 }
 
