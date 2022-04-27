@@ -81,16 +81,22 @@ server <- function(input, output) {
 
 # Vessel Location tab ----------------------------------------------------------
 
-  output$vessl_map <- renderLeaflet({
+  output$vessel_map <- renderLeaflet({
     
     input$vessel_input %>% 
-      leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
+      leaflet(
+        options = leafletOptions(zoomControl = FALSE)) %>%
       htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)
-    }") %>%
+    }"
+    ) %>%
       addTiles() %>%
       addPolylines(lng = ~long, lat = ~lat, #group = ~group
-                   )
+                   ) %>% 
+      addMarkers(lng = ~long, lat = ~lat,
+                 label = ~date,
+                 #clusterOptions = markerClusterOptions()
+                 )
   })
 
 

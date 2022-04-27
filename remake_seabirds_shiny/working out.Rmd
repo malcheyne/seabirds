@@ -719,6 +719,10 @@ leaflet(position) %>% addTiles() %>%
 ```
 
 
+```{r}
+birds_21 %>%
+  filter(str_detect(date, "^197[5-9]"))
+```
 
 
 
