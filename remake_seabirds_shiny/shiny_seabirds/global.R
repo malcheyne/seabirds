@@ -145,7 +145,48 @@ early_80 <- "^198[0-4]"
 late_80 <- "^198[5-9]"
 early_90 <- "^199[0-4]"
 
+getColor <- function(quakes) {
+  sapply(position$date, function(date) {
+    case_when(str_detect(date, 
+                         regex("^19[6-9]0", 
+                               ignore_case = TRUE)) ~ "green",
+              str_detect(date, 
+                         regex("^19[6-9]1", 
+                               ignore_case = TRUE)) ~ "orange",
+              str_detect(date, 
+                         regex("^19[6-9]2", 
+                               ignore_case = TRUE)) ~ "blue",
+              str_detect(date, 
+                         regex("^19[6-9]3", 
+                               ignore_case = TRUE)) ~ "red",
+              str_detect(date, 
+                         regex("^19[6-9]4", 
+                               ignore_case = TRUE)) ~ "purple",
+              str_detect(date, 
+                         regex("^19[6-9]5", 
+                               ignore_case = TRUE)) ~ "pink",
+              str_detect(date, 
+                         regex("^19[6-9]6", 
+                               ignore_case = TRUE)) ~ "gray",
+              str_detect(date, 
+                         regex("^19[6-9]7", 
+                               ignore_case = TRUE)) ~ "lightblue",
+              str_detect(date, 
+                         regex("^19[6-9]8", 
+                               ignore_case = TRUE)) ~ "lightred",
+              str_detect(date, 
+                         regex("^19[6-9]9", 
+                               ignore_case = TRUE)) ~ "cadetblue",
+              
+    ) })
+}
 
+icons <- awesomeIcons(
+  icon = 'ios-close',
+  iconColor = 'black',
+  library = 'ion',
+  markerColor = getColor(position)
+)
 
 # Pallets ----------------------------------------------------------------------
 
