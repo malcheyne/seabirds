@@ -51,6 +51,14 @@ position <- ship_data %>%
 #             in_hand_count = sum(in_hand, na.rm = TRUE),
 #             fly_by_count = sum(fly_by, na.rm = TRUE))
 
+sighting_start <-  birds_21 %>% 
+  filter(!is.na(bird_type)) %>%  
+  group_by(bird_type) %>% 
+  summarise(count = sum(total_sighting, na.rm = TRUE))
+
+
+make_bird_data <- function(data) {
+
 sighting <-  bird_range %>% 
   filter(!is.na(bird_type)) %>%  
   group_by(bird_type) %>% 
@@ -75,6 +83,8 @@ fly_by <-  bird_range %>%
   group_by(bird_type) %>% 
   filter(str_detect(fly_by, "YES")) %>% 
   summarise(count = n())
+
+}
 
 make_bird_plot <- function(data, plot_input, log_scale = FALSE) {
 

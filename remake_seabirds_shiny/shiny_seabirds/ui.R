@@ -30,7 +30,7 @@ body <- dashboardBody(
                                                  "On Vessel" = "on_ship",
                                                  "In Hand" = "in_hand",
                                                 " Flying By" = "fly_by"),
-                                          selected = sighting)
+                                          selected = sighting_start)
               ),
               column(width = 5,
                      br(),

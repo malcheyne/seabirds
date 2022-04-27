@@ -12,6 +12,10 @@ server <- function(input, output) {
     filter(date >= input$bird_date_range[1] & 
              date <= input$bird_date_range[2])
   })
+  
+  bird_count <- reactive(
+    make_bird_data(bird_range)
+  )
 
 
   # reactive, depends on the user's input
