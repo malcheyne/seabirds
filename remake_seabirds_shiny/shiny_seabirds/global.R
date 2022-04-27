@@ -18,6 +18,8 @@ library(lubridate)
 # library(RColorBrewer)
 library(readxl)
 
+#library(magrittr)
+
 
 
 
@@ -122,9 +124,14 @@ variants_plot <- function(data, plot_input,
 }
 
 
-# SelectInput Choices for global -----------------------------------------------
+# Vessel Tab -------------------------------------------------------------------
 
-
+late_60 <- c(65, 66, 67, 68, 69)
+early_70 <- c(70, 71, 72, 73, 74)
+late_70 <- c(75, 76, 77, 78, 79)
+early_80 <- c(80, 81, 82, 83, 84)
+late_80 <- c(85, 86, 87, 88, 89)
+early_90 <- c(90, 91, 92, 93, 94)
 
 
 
